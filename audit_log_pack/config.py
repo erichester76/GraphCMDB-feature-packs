@@ -2,6 +2,13 @@ FEATURE_PACK_CONFIG = {
     'name': 'Audit Log Pack',
     'applies_to_labels': 'all',  # Apply to all node types
     'dependencies': [],
+    'hooks': {
+        'audit': 'audit_log_pack.hooks.register_hooks'
+    },
+    'urls': {
+        'prefix': '',
+        'module': 'audit_log_pack.urls'
+    },
     'tabs': [
         {
             'id': 'audit_log',

@@ -1,16 +1,11 @@
-<!-- Audit Log Tab Template -->
-<div class="space-y-4">
-    <div class="flex justify-between items-center">
-        <h3 class="text-lg font-medium text-gray-900 dark:text-white">Audit Log</h3>
-        <span class="text-sm text-gray-500 dark:text-gray-400">Recent changes to this node</span>
+<div class="bg-white dark:bg-gray-800 shadow rounded-lg">
+    <div class="px-6 py-4 border-b border-gray-200 dark:border-gray-700">
+        <h2 class="text-xl font-semibold text-gray-900 dark:text-white">System Audit Log</h2>
+        <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">All changes across the CMDB</p>
     </div>
 
-    {% if error %}
-        <div class="p-4 bg-red-100 dark:bg-red-900 text-red-800 dark:text-red-200 rounded">
-            Error loading audit log: {{ error }}
-        </div>
-    {% elif custom_data.audit_entries %}
-        <div class="overflow-x-auto">
+    <div class="overflow-x-auto">
+        {% if audit_entries %}
             <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
                 <thead class="bg-gray-50 dark:bg-gray-700">
                     <tr>
@@ -21,6 +16,9 @@
                             Action
                         </th>
                         <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                            Node
+                        </th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
                             User
                         </th>
                         <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
@@ -29,7 +27,7 @@
                     </tr>
                 </thead>
                 <tbody class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
-                    {% for entry in custom_data.audit_entries %}
+                    {% for entry in audit_entries %}
                         <tr class="hover:bg-gray-50 dark:hover:bg-gray-700">
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-100">
                                 {{ entry.timestamp|slice:":19" }}
@@ -44,6 +42,11 @@
                                     {% else %}bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200{% endif %}">
                                     {{ entry.action|upper }}
                                 </span>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm">
+                                <a href="{% url 'cmdb:node_detail' entry.node_label entry.node_id %}" class="text-indigo-600 dark:text-indigo-400 hover:text-indigo-900 dark:hover:text-indigo-300">
+                                    {{ entry.node_label }}: {{ entry.node_name }}
+                                </a>
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
                                 {{ entry.user }}
@@ -73,7 +76,7 @@
                                         </details>
                                     {% endif %}
                                     {% if entry.old_props_json %}
-                                        <form method="post" action="{% url 'audit_log_pack:audit_log_revert' entry.id %}" class="mt-2">
+                                        <form method="post" action="{% url 'audit_log_pack:audit_log_revert' entry.element_id %}" class="mt-2">
                                             {% csrf_token %}
                                             <button type="submit" class="text-xs px-2 py-1 rounded bg-amber-100 dark:bg-amber-900 text-amber-800 dark:text-amber-200 hover:bg-amber-200">Revert</button>
                                         </form>
@@ -92,13 +95,14 @@
                     {% endfor %}
                 </tbody>
             </table>
-        </div>
-    {% else %}
-        <div class="text-center py-8">
-            <svg class="mx-auto h-12 w-12 text-gray-400 dark:text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-            </svg>
-            <p class="mt-2 text-sm text-gray-500 dark:text-gray-400">No audit log entries found for this node</p>
-        </div>
-    {% endif %}
+        {% else %}
+            <div class="text-center py-12">
+                <svg class="mx-auto h-12 w-12 text-gray-400 dark:text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                </svg>
+                <p class="mt-2 text-sm text-gray-500 dark:text-gray-400">No audit log entries found</p>
+                <p class="mt-1 text-xs text-gray-400 dark:text-gray-500">Changes will appear here once operations are performed</p>
+            </div>
+        {% endif %}
+    </div>
 </div>

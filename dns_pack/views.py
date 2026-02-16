@@ -5,12 +5,7 @@ from django.middleware.csrf import get_token
 from neomodel import db
 from cmdb.models import DynamicNode
 from cmdb.registry import TypeRegistry
-
-try:
-    from audit_log_pack.views import create_audit_entry
-except Exception:
-    def create_audit_entry(*args, **kwargs):
-        pass
+from cmdb.audit_helpers import audit_update_node, audit_create_node
 
 
 def dns_zone_details_tab(request, label, element_id):
@@ -205,6 +200,7 @@ def dns_record_edit_modal(request, label, element_id):
                 context['error'] = 'Target DNS Record is required for CNAME records.'
                 return render(request, 'dns_record_edit_modal.html', context)
 
+        old_props = node.custom_properties or {}
         node.custom_properties = new_props_from_fields
         node.save()
 
@@ -221,13 +217,12 @@ def dns_record_edit_modal(request, label, element_id):
             node_class.connect_nodes(element_id, label, 'RESOLVES_TO', record_id, 'DNS_Record')
 
         node_name = new_props_from_fields.get('name', '')
-        create_audit_entry(
-            action='update',
-            node_label=label,
-            node_id=element_id,
-            node_name=node_name,
-            user=request.user.username if request.user.is_authenticated else 'System',
-            changes=f"Updated properties: {', '.join(new_props_from_fields.keys())}"
+        audit_update_node(
+            label=label,
+            element_id=element_id,
+            old_props=old_props,
+            new_props=new_props_from_fields,
+            user=request.user,
         )
 
         return render(request, 'cmdb/partials/edit_success.html', {
@@ -515,13 +510,11 @@ def dns_record_create_modal(request, label):
             node_class.connect_nodes(node.element_id, label, 'RESOLVES_TO', record_id, 'DNS_Record')
 
         node_name = new_props_from_fields.get('name', '')
-        create_audit_entry(
-            action='create',
-            node_label=label,
-            node_id=node.element_id,
-            node_name=node_name,
-            user=request.user.username if request.user.is_authenticated else 'System',
-            changes=f"Created with properties: {', '.join(new_props_from_fields.keys())}"
+        audit_create_node(
+            label=label,
+            element_id=node.element_id,
+            props=new_props_from_fields,
+            user=request.user,
         )
 
         return render(request, 'cmdb/partials/create_success.html', {

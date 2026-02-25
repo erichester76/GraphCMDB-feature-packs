@@ -73,7 +73,7 @@
                                         </details>
                                     {% endif %}
                                     {% if entry.old_props_json %}
-                                            <form method="post" action="{% url 'cmdb:audit_log_revert' entry.id %}" class="mt-2">
+                                            <form method="post" action="{% url 'flexdb:audit_log_revert' entry.id %}" class="mt-2">
                                             {% csrf_token %}
                                             <button type="submit" class="text-xs px-2 py-1 rounded bg-amber-100 dark:bg-amber-900 text-amber-800 dark:text-amber-200 hover:bg-amber-200">Revert</button>
                                         </form>
@@ -86,14 +86,14 @@
                                     Disconnected {{ entry.relationship_type }} from {{ entry.target_label }}
                                 {% elif entry.action == 'revert' %}
                                     {% if entry.changes %}
-                                        {{ entry.changes }}
+                                        {{ entry.changes }}1
                                     {% else %}
                                         Reverted to previous values
                                     {% endif %}
                                     {% if entry.revert_from %}
                                         <div class="mt-1 text-xs text-gray-500 dark:text-gray-400">
                                             Revert source:
-                                            <a href="{% url 'cmdb:audit_log_list' %}?entry_id={{ entry.revert_from }}" class="text-indigo-600 dark:text-indigo-400 hover:underline">
+                                            <a href="{% url 'flexdb:audit_log_list' %}?entry_id={{ entry.revert_from }}" class="text-indigo-600 dark:text-indigo-400 hover:underline">
                                                 {{ entry.revert_from }}
                                             </a>
                                         </div>

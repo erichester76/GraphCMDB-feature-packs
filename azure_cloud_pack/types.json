@@ -17,7 +17,7 @@
       "BELONGS_TO": {"target": "Azure_Subscription", "direction": "out"}
     }
   },
-  "Azure_Network_Security_Group": {
+  "Azure_NSG": {
     "display_name": "Azure Network Security Group",
     "category": "Cloud",
     "description": "A security group that controls inbound and outbound traffic for Azure resources.",
@@ -27,7 +27,7 @@
       "IN_RESOURCE_GROUP": {"target": "Azure_Resource_Group", "direction": "out"}
     }
   },
-  "Azure_Virtual_Network": {
+  "Azure_VNet": {
     "display_name": "Azure Virtual Network",
     "category": "Cloud",
     "description": "A logically isolated network in Azure.",

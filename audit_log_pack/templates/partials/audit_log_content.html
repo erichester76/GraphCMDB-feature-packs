@@ -76,7 +76,7 @@
                                         </details>
                                     {% endif %}
                                     {% if entry.old_props_json %}
-                                        <form method="post" action="{% url 'audit_log_pack:audit_log_revert' entry.element_id %}" class="mt-2">
+                                        <form method="post" action="{% url 'cmdb:audit_log_revert' entry.element_id %}" class="mt-2">
                                             {% csrf_token %}
                                             <button type="submit" class="text-xs px-2 py-1 rounded bg-amber-100 dark:bg-amber-900 text-amber-800 dark:text-amber-200 hover:bg-amber-200">Revert</button>
                                         </form>
@@ -88,7 +88,29 @@
                                 {% elif entry.action == 'disconnect' %}
                                     Disconnected {{ entry.relationship_type }} from {{ entry.target_label }}
                                 {% elif entry.action == 'revert' %}
-                                    Reverted to previous values
+                                    {% if entry.changes %}
+                                        {{ entry.changes }}
+                                    {% else %}
+                                        Reverted to previous values
+                                    {% endif %}
+                                    {% if entry.revert_from %}
+                                        <div class="mt-1 text-xs text-gray-500 dark:text-gray-400">Revert source: {{ entry.revert_from }}</div>
+                                    {% endif %}
+                                    {% if entry.old_props_json or entry.new_props_json %}
+                                        <details class="mt-2">
+                                            <summary class="text-xs text-indigo-600 dark:text-indigo-400 cursor-pointer">View old/new values</summary>
+                                            <div class="mt-2 grid grid-cols-1 md:grid-cols-2 gap-3">
+                                                <div>
+                                                    <p class="text-xs font-semibold text-gray-500 dark:text-gray-400">Old</p>
+                                                    <pre class="text-xs bg-gray-50 dark:bg-gray-900 rounded p-2 overflow-auto">{{ entry.old_props_json }}</pre>
+                                                </div>
+                                                <div>
+                                                    <p class="text-xs font-semibold text-gray-500 dark:text-gray-400">New</p>
+                                                    <pre class="text-xs bg-gray-50 dark:bg-gray-900 rounded p-2 overflow-auto">{{ entry.new_props_json }}</pre>
+                                                </div>
+                                            </div>
+                                        </details>
+                                    {% endif %}
                                 {% endif %}
                             </td>
                         </tr>

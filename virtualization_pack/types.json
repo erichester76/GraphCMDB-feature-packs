@@ -1,7 +1,7 @@
 {
   "Virtual_Machine": {
     "display_name": "Virtual Machine",
-    "category": "Virtualization",
+    "category": "Inventory",
     "properties": [
       "name",
       "vcpus",
@@ -24,7 +24,7 @@
   },
   "Virtual_Host": {
     "display_name": "Virtualization Host / Hypervisor",
-    "category": "Virtualization",
+    "category": "Inventory",
     "properties": [
       "name",
       "hypervisor_type",
@@ -44,7 +44,7 @@
   },
   "Virtual_Cluster": {
     "display_name": "Virtual Cluster",
-    "category": "Virtualization",
+    "category": "Inventory",
     "properties": [
       "name",
       "description",

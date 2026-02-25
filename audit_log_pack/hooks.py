@@ -5,7 +5,7 @@ from cmdb.registry import TypeRegistry
 
 def create_audit_entry(action, node_label, node_id, node_name=None, user=None, changes=None,
                        relationship_type=None, target_label=None, target_id=None,
-                       old_props=None, new_props=None):
+                       old_props=None, new_props=None, revert_from=None):
     if 'AuditLogEntry' not in TypeRegistry.known_labels():
         return None
 
@@ -27,6 +27,8 @@ def create_audit_entry(action, node_label, node_id, node_name=None, user=None, c
             properties['old_props'] = old_props
         if new_props is not None:
             properties['new_props'] = new_props
+        if revert_from is not None:
+            properties['revert_from'] = revert_from
         return audit_node_class(custom_properties=properties).save()
     except Exception as exc:
         print(f"Error creating audit log entry: {exc}")

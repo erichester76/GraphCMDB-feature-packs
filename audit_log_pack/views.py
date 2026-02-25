@@ -57,6 +57,7 @@ def audit_log_tab(request, label, element_id):
                     'node_name': props.get('node_name', 'Unknown'),
                     'user': props.get('user', 'System'),
                     'changes': props.get('changes', ''),
+                    'revert_from': props.get('revert_from', ''),
                     'relationship_type': props.get('relationship_type', ''),
                     'target_label': props.get('target_label', ''),
                     'target_id': props.get('target_id', ''),
@@ -109,6 +110,7 @@ def audit_log_list(request):
                 'node_name': props.get('node_name', 'Unknown'),
                 'user': props.get('user', 'System'),
                 'changes': props.get('changes', ''),
+                    'revert_from': props.get('revert_from', ''),
                 'relationship_type': props.get('relationship_type', ''),
                 'target_label': props.get('target_label', ''),
                 'target_id': props.get('target_id', ''),
@@ -145,7 +147,7 @@ def audit_log_revert(request, entry_id):
         audit_entry = audit_node_class.get_by_element_id(entry_id)
         if not audit_entry:
             messages.error(request, 'Audit log entry not found.')
-            return redirect('audit_log_pack:audit_log_list')
+            return redirect('cmdb:audit_log_list')
 
         props = audit_entry.custom_properties or {}
         node_label = props.get('node_label')
@@ -159,22 +161,23 @@ def audit_log_revert(request, entry_id):
 
         if not node_label or not node_id:
             messages.error(request, 'Audit log entry is missing node information.')
-            return redirect('audit_log_pack:audit_log_list')
+            return redirect('cmdb:audit_log_list')
 
         if not old_props:
             messages.error(request, 'No previous values stored for this audit entry.')
-            return redirect('audit_log_pack:audit_log_list')
+            return redirect('cmdb:audit_log_list')
 
         if not has_node_permission(request.user, 'change', node_label):
             messages.error(request, 'Access Denied: insufficient permissions to revert.')
-            return redirect('audit_log_pack:audit_log_list')
+            return redirect('cmdb:audit_log_list')
 
         node_class = DynamicNode.get_or_create_label(node_label)
         node = node_class.get_by_element_id(node_id)
         if not node:
             messages.error(request, 'Target node not found.')
-            return redirect('audit_log_pack:audit_log_list')
+            return redirect('cmdb:audit_log_list')
 
+        current_props = node.custom_properties or {}
         node.custom_properties = old_props
         node.save()
 
@@ -184,13 +187,16 @@ def audit_log_revert(request, entry_id):
             node_id=node_id,
             node_name=old_props.get('name', ''),
             user=request.user.username if request.user.is_authenticated else 'System',
-            changes='Reverted to previous values'
+            changes=f"Reverted to previous values from audit entry {entry_id}",
+            old_props=current_props,
+            new_props=old_props,
+            revert_from=entry_id
         )
 
         messages.success(request, 'Reverted to previous values.')
-        return redirect('audit_log_pack:audit_log_list')
+        return redirect('cmdb:audit_log_list')
     except Exception as exc:
         messages.error(request, f'Failed to revert: {exc}')
-        return redirect('audit_log_pack:audit_log_list')
+        return redirect('cmdb:audit_log_list')
 
 

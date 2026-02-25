@@ -1,0 +1,27 @@
+{
+  "AWS_Account": {
+    "display_name": "AWS Account",
+    "category": "Cloud",
+    "properties": ["name", "account_id", "organization_id"],
+    "required": ["name", "account_id"],
+    "relationships": {}
+  },
+  "AWS_VPC": {
+    "display_name": "AWS VPC",
+    "category": "Cloud",
+    "properties": ["name", "vpc_id", "cidr_block", "region"],
+    "required": ["name", "vpc_id"],
+    "relationships": {
+      "BELONGS_TO": {"target": "AWS_Account", "direction": "out"}
+    }
+  },
+  "AWS_EC2_Instance": {
+    "display_name": "AWS EC2 Instance",
+    "category": "Cloud",
+    "properties": ["name", "instance_id", "vpc_id", "instance_type", "os_type"],
+    "required": ["name", "instance_id", "vpc_id"],
+    "relationships": {
+      "IN_VPC": {"target": "AWS_VPC", "direction": "out"}
+    }
+  }
+}

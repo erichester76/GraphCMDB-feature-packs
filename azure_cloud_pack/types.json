@@ -1,0 +1,27 @@
+{
+  "Azure_Subscription": {
+    "display_name": "Azure Subscription",
+    "category": "Cloud",
+    "properties": ["name", "subscription_id", "tenant_id"],
+    "required": ["name", "subscription_id"],
+    "relationships": {}
+  },
+  "Azure_Resource_Group": {
+    "display_name": "Azure Resource Group",
+    "category": "Cloud",
+    "properties": ["name", "location", "subscription_id"],
+    "required": ["name", "subscription_id"],
+    "relationships": {
+      "BELONGS_TO": {"target": "Azure_Subscription", "direction": "out"}
+    }
+  },
+  "Azure_VM": {
+    "display_name": "Azure Virtual Machine",
+    "category": "Cloud",
+    "properties": ["name", "vm_id", "resource_group", "size", "os_type"],
+    "required": ["name", "vm_id", "resource_group"],
+    "relationships": {
+      "IN_RESOURCE_GROUP": {"target": "Azure_Resource_Group", "direction": "out"}
+    }
+  }
+}

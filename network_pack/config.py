@@ -1,6 +1,6 @@
 FEATURE_PACK_CONFIG = {
     'name': 'Network Pack',
-    'version': '1.0.0',
+    'version': '1.1.0',
     'applies_to_labels': ['Interface', 'Cable', 'Circuit', 'VLAN'],
     'dependencies': ['inventory_pack', 'vendor_management_pack'],
     'tabs': [
@@ -31,6 +31,20 @@ FEATURE_PACK_CONFIG = {
             'template': 'vlan_details_tab.html',
             'custom_view': 'network_pack.views.vlan_details_tab',
             'for_labels': ['VLAN']
+        },
+        {
+            'id': 'vxlan_details',
+            'name': 'Network Details',
+            'template': 'vxlan_details_tab.html',
+            'custom_view': 'network_pack.views.vxlan_details_tab',
+            'for_labels': ['VXLAN']
+        },
+        {
+            "id": "vrf_tab",
+            "name": "VRF",
+            "template": "routing_pack/vrf_tab.html",
+            "for_labels": ["VRF"],
+            "tab_order": 1
         },
     ]
 }

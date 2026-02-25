@@ -116,19 +116,6 @@
     }
   },
 
-  "VRF": {
-    "display_name": "VRF",
-    "category": "Routing",
-    "properties": [
-      "name",
-      "rd",
-      "description",
-      "route_target_export",
-      "route_target_import"
-    ],
-    "required": ["name", "rd"],
-    "relationships": {}
-  },
 
   "OSPFProcess": {
     "display_name": "OSPF Process",

@@ -1,6 +1,6 @@
 FEATURE_PACK_CONFIG = {
     "name": "Routing Pack",
-    "version": "1.0.0",
+    "version": "1.1.0",
     "dependencies": [],
     "tabs": [
         {
@@ -29,13 +29,6 @@ FEATURE_PACK_CONFIG = {
             "name": "OSPF Area",
             "template": "routing_pack/ospf_area_tab.html",
             "for_labels": ["OSPFArea"],
-            "tab_order": 1
-        },
-        {
-            "id": "vrf_tab",
-            "name": "VRF",
-            "template": "routing_pack/vrf_tab.html",
-            "for_labels": ["VRF"],
             "tab_order": 1
         },
         {

@@ -102,5 +102,31 @@
     "relationships": {
 
     }
+  },
+  "VRF": {
+    "display_name": "VRF",
+    "category": "Networking",
+    "properties": [
+      "name",
+      "rd",
+      "description",
+      "route_target_export",
+      "route_target_import"
+    ],
+    "required": ["name", "rd"],
+    "columns": ["name", "rd"],
+    "relationships": {}
+  },
+  "VXLAN": {
+    "display_name": "VXLAN",
+    "category": "Networking",
+    "properties": [
+      "vni",
+      "name",
+      "description"
+    ],
+    "required": ["vni", "name"],
+    "columns": ["vni", "name"],
+    "relationships": {}
   }
 }

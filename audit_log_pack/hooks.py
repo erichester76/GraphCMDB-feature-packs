@@ -1,6 +1,6 @@
 from datetime import datetime, timezone
-from cmdb.models import DynamicNode
-from cmdb.registry import TypeRegistry
+from flexdb.models import DynamicNode
+from flexdb.registry import TypeRegistry
 
 
 def create_audit_entry(action, node_label, node_id, node_name=None, user=None, changes=None,

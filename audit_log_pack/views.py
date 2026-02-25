@@ -7,11 +7,11 @@ from django.http import HttpResponse
 from django.template.loader import render_to_string
 from django.views.decorators.http import require_http_methods
 import json
-from cmdb.audit_hooks import emit_audit
-from cmdb.registry import TypeRegistry
+from flexdb.audit_hooks import emit_audit
+from flexdb.registry import TypeRegistry
 from users.views import has_node_permission
 from neomodel import db
-from cmdb.models import DynamicNode
+from flexdb.models import DynamicNode
 
 
 def audit_log_tab(request, label, element_id):
@@ -147,7 +147,7 @@ def audit_log_revert(request, entry_id):
         audit_entry = audit_node_class.get_by_element_id(entry_id)
         if not audit_entry:
             messages.error(request, 'Audit log entry not found.')
-            return redirect('cmdb:audit_log_list')
+            return redirect('flexdb:audit_log_list')
 
         props = audit_entry.custom_properties or {}
         node_label = props.get('node_label')
@@ -161,21 +161,21 @@ def audit_log_revert(request, entry_id):
 
         if not node_label or not node_id:
             messages.error(request, 'Audit log entry is missing node information.')
-            return redirect('cmdb:audit_log_list')
+            return redirect('flexdb:audit_log_list')
 
         if not old_props:
             messages.error(request, 'No previous values stored for this audit entry.')
-            return redirect('cmdb:audit_log_list')
+            return redirect('flexdb:audit_log_list')
 
         if not has_node_permission(request.user, 'change', node_label):
             messages.error(request, 'Access Denied: insufficient permissions to revert.')
-            return redirect('cmdb:audit_log_list')
+            return redirect('flexdb:audit_log_list')
 
         node_class = DynamicNode.get_or_create_label(node_label)
         node = node_class.get_by_element_id(node_id)
         if not node:
             messages.error(request, 'Target node not found.')
-            return redirect('cmdb:audit_log_list')
+            return redirect('flexdb:audit_log_list')
 
         current_props = node.custom_properties or {}
         node.custom_properties = old_props
@@ -194,9 +194,9 @@ def audit_log_revert(request, entry_id):
         )
 
         messages.success(request, 'Reverted to previous values.')
-        return redirect('cmdb:audit_log_list')
+        return redirect('flexdb:audit_log_list')
     except Exception as exc:
         messages.error(request, f'Failed to revert: {exc}')
-        return redirect('cmdb:audit_log_list')
+        return redirect('flexdb:audit_log_list')
 
 

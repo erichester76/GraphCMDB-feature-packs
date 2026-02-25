@@ -1,12 +1,12 @@
 # Audit Log Feature Pack
 
 ## Overview
-The Audit Log Pack provides comprehensive change tracking and auditing capabilities for the GraphCMDB system. It logs all create, update, delete, and relationship operations on nodes in the database.
+The Audit Log Pack provides comprehensive change tracking and auditing capabilities for the Graphflexdb system. It logs all create, update, delete, and relationship operations on nodes in the database.
 
 ## Features
 
 ### 1. Automatic Change Tracking
-All modifications to the CMDB are automatically logged with the following information:
+All modifications to the flexdb are automatically logged with the following information:
 - **Timestamp**: When the change occurred
 - **Action**: Type of operation (create, update, delete, connect, disconnect)
 - **Node Information**: Label, ID, and name of the affected node
@@ -16,7 +16,7 @@ All modifications to the CMDB are automatically logged with the following inform
 
 ### 2. Global Audit Log View
 Access the complete audit log from the sidebar navigation:
-- Path: `/cmdb/audit-log/`
+- Path: `/flexdb/audit-log/`
 - Shows all audit entries across the entire system
 - Limited to the latest 200 entries
 - Sorted by timestamp (most recent first)
@@ -82,9 +82,9 @@ The audit log uses a Neo4j node with the label `AuditLogEntry` and the following
 - **Purple**: Connect (relationship creation) operations
 - **Orange**: Disconnect (relationship removal) operations
 
-## Integration with CMDB Operations
+## Integration with flexdb Operations
 
-The audit logging is automatically integrated into the following CMDB operations:
+The audit logging is automatically integrated into the following flexdb operations:
 - `node_create`: Logs node creation with initial properties
 - `node_edit`: Logs property updates with list of changed keys
 - `node_delete`: Logs node deletion
@@ -116,7 +116,7 @@ create_audit_entry(
 ### Error Handling
 The audit logging system is designed to be fail-safe:
 - If audit log creation fails, it logs the error but doesn't interrupt the main operation
-- This ensures that CMDB operations continue to work even if audit logging has issues
+- This ensures that flexdb operations continue to work even if audit logging has issues
 
 ## Configuration
 

@@ -1,7 +1,7 @@
 <div class="bg-white dark:bg-gray-800 shadow rounded-lg">
     <div class="px-6 py-4 border-b border-gray-200 dark:border-gray-700">
         <h2 class="text-xl font-semibold text-gray-900 dark:text-white">System Audit Log</h2>
-        <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">All changes across the CMDB</p>
+        <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">All changes across the DB</p>
     </div>
 
     <div class="overflow-x-auto">
@@ -44,7 +44,7 @@
                                 </span>
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm">
-                                <a href="{% url 'cmdb:node_detail' entry.node_label entry.node_id %}" class="text-indigo-600 dark:text-indigo-400 hover:text-indigo-900 dark:hover:text-indigo-300">
+                                <a href="{% url 'flexdb:node_detail' entry.node_label entry.node_id %}" class="text-indigo-600 dark:text-indigo-400 hover:text-indigo-900 dark:hover:text-indigo-300">
                                     {{ entry.node_label }}: {{ entry.node_name }}
                                 </a>
                             </td>
@@ -76,7 +76,7 @@
                                         </details>
                                     {% endif %}
                                     {% if entry.old_props_json %}
-                                        <form method="post" action="{% url 'cmdb:audit_log_revert' entry.element_id %}" class="mt-2">
+                                        <form method="post" action="{% url 'flexdb:audit_log_revert' entry.element_id %}" class="mt-2">
                                             {% csrf_token %}
                                             <button type="submit" class="text-xs px-2 py-1 rounded bg-amber-100 dark:bg-amber-900 text-amber-800 dark:text-amber-200 hover:bg-amber-200">Revert</button>
                                         </form>

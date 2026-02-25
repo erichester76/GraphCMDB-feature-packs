@@ -1,4 +1,6 @@
 FEATURE_PACK_CONFIG = {
+    'author': 'Eric Hester',
+    'author_email': 'eric.hester@gmail.com',
     'name': 'ITSM Pack',
     'version': '1.0.0',
     'applies_to_labels': ['Issue', 'Problem', 'Change', 'Release', 'Event'],

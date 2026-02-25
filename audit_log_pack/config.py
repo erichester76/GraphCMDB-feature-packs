@@ -1,4 +1,6 @@
 FEATURE_PACK_CONFIG = {
+    'author': 'Eric Hester',
+    'author_email': 'eric.hester@gmail.com',
     'name': 'Audit Log Pack',
     'version': '1.0.2',
     'applies_to_labels': 'all',  # Apply to all node types

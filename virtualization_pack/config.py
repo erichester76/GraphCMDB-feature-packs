@@ -1,4 +1,6 @@
 FEATURE_PACK_CONFIG = {
+    'author': 'Eric Hester',
+    'author_email': 'eric.hester@gmail.com',
     'name': 'Virtualization Pack',
     'version': '1.0.1',
     'applies_to_labels': ['Virtual_Machine', 'Virtual_Host', 'Virtual_Cluster'],

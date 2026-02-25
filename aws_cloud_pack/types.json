@@ -2,6 +2,7 @@
   "AWS_Account": {
     "display_name": "AWS Account",
     "category": "Cloud",
+    "description": "An Amazon Web Services account, the root container for AWS resources.",
     "properties": ["name", "account_id", "organization_id"],
     "required": ["name", "account_id"],
     "relationships": {}
@@ -9,19 +10,32 @@
   "AWS_VPC": {
     "display_name": "AWS VPC",
     "category": "Cloud",
+    "description": "A Virtual Private Cloud (VPC) in AWS, a logically isolated network.",
     "properties": ["name", "vpc_id", "cidr_block", "region"],
     "required": ["name", "vpc_id"],
     "relationships": {
       "BELONGS_TO": {"target": "AWS_Account", "direction": "out"}
     }
   },
-  "AWS_EC2_Instance": {
-    "display_name": "AWS EC2 Instance",
+  "AWS_Security_Group": {
+    "display_name": "AWS Security Group",
     "category": "Cloud",
-    "properties": ["name", "instance_id", "vpc_id", "instance_type", "os_type"],
-    "required": ["name", "instance_id", "vpc_id"],
+    "description": "A security group that controls inbound and outbound traffic for AWS resources.",
+    "properties": ["name", "sg_id", "vpc_id", "rules"],
+    "required": ["name", "sg_id", "vpc_id"],
     "relationships": {
       "IN_VPC": {"target": "AWS_VPC", "direction": "out"}
+    }
+  },
+  "AWS_Subnet": {
+    "display_name": "AWS Subnet",
+    "category": "Cloud",
+    "description": "A subnet within an AWS VPC.",
+    "properties": ["name", "subnet_id", "vpc_id"],
+    "required": ["name", "subnet_id", "vpc_id"],
+    "relationships": {
+      "PART_OF_VPC": {"target": "AWS_VPC", "direction": "out"},
+      "LINKED_TO_IPAM_NETWORK": {"target": "Network", "direction": "out"}
     }
   }
 }

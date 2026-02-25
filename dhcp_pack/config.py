@@ -1,5 +1,6 @@
 FEATURE_PACK_CONFIG = {
     'name': 'DHCP Pack',
+    'version': '1.0.0',
     'applies_to_labels': ['DHCP_Scope', 'DHCP_Lease'],
     'dependencies': ['ipam_pack'],
     'tabs': [

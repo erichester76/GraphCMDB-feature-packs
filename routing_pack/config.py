@@ -1,5 +1,6 @@
 FEATURE_PACK_CONFIG = {
     "name": "Routing Pack",
+    "version": "1.0.0",
     "dependencies": [],
     "tabs": [
         {

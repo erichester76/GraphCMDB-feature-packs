@@ -1,5 +1,6 @@
 FEATURE_PACK_CONFIG = {
     'name': 'Audit Log Pack',
+    'version': '1.0.0',
     'applies_to_labels': 'all',  # Apply to all node types
     'dependencies': [],
     'hooks': {

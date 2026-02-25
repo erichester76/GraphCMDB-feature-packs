@@ -1,5 +1,6 @@
 FEATURE_PACK_CONFIG = {
     'name': 'Vendor Management Pack',
+    'version': '1.0.0',
     'applies_to_labels': ['Vendor', 'Contract'],
     'dependencies': ['organization_pack'],
     'tabs': [

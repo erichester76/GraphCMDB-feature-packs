@@ -1,5 +1,6 @@
 FEATURE_PACK_CONFIG = {
     'name': 'Data Center Pack',
+    'version': '1.0.0',
     'applies_to_labels': ['Rack_Unit', 'Rack', 'Row', 'Room'],
     'dependencies': ['inventory_pack', 'organization_pack'],
     'tabs': [

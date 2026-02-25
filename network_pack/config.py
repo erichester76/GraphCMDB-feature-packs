@@ -1,5 +1,6 @@
 FEATURE_PACK_CONFIG = {
     'name': 'Network Pack',
+    'version': '1.0.0',
     'applies_to_labels': ['Interface', 'Cable', 'Circuit', 'VLAN'],
     'dependencies': ['inventory_pack', 'vendor_management_pack'],
     'tabs': [

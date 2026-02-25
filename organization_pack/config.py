@@ -1,5 +1,6 @@
 FEATURE_PACK_CONFIG = {
     'name': 'Organization Pack',
+    'version': '1.0.0',
     'applies_to_labels': ['Person', 'Department', 'Site', 'Building'],
     'dependencies': [],
     'tabs': [

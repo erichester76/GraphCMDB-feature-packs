@@ -1,5 +1,6 @@
 FEATURE_PACK_CONFIG = {
     'name': 'DNS Pack',
+    'version': '1.0.0',
     'applies_to_labels': ['DNS_Zone', 'DNS_Record', 'DNS_View'],
     'dependencies': ['inventory_pack', 'ipam_pack'],
     'tabs': [

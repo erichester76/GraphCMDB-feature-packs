@@ -1,5 +1,6 @@
 FEATURE_PACK_CONFIG = {
     'name': 'Virtualization Pack',
+    'version': '1.0.0',
     'applies_to_labels': ['Virtual_Machine', 'Virtual_Host', 'Virtual_Cluster'],
     'dependencies': ['inventory_pack', 'organization_pack'],
     'tabs': [

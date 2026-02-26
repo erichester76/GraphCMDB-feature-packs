@@ -1,0 +1,89 @@
+{
+  "Rack_Unit": {
+    "display_name": "Rack Unit",
+    "category": "Data Center",
+    "properties": [
+      "unit_number",
+      "status"
+    ],
+    "required": [
+      "name",
+      "unit_number",
+      "side"
+    ],
+    "relationships": {
+      "OCCUPIED_BY": {
+        "target": "Element",
+        "direction": "out",
+        "description": "Rack unit is occupied by device"
+      },
+      "PART_OF": {
+        "target": "Rack",
+        "direction": "out",
+        "description": "Rack unit is part of rack"
+      }
+    }
+  },
+  "Rack": {
+    "display_name": "Rack / Cabinet",
+    "category": "Data Center",
+    "properties": [
+       "name",
+       "height",
+       "width",
+       "depth",
+       "serial_number",
+       "rack_number",
+       "created_date",
+       "updated_date",
+       {"name": "status", "choices": ["active", "inactive"]}    
+    ],
+    "required": [
+       "name",
+       "height",
+       "rack_number"
+    ],
+    "relationships": {
+      "LOCATED_IN": {
+        "target": "Row",
+        "direction": "out",
+        "description": "Rack is located in row"
+      },
+      "ASSOCIATED_WITH": {
+        "target": "Organization, Location, Group",
+        "direction": "out",
+        "description": "Rack is associated with organizational items"
+      }
+    }
+  },
+  "Row": {
+    "display_name": "Data Center Row",
+    "category": "Data Center",
+    "properties": [
+      "name",
+      "description",
+      "orientation",
+      "row_number",
+      "created_date",
+      "updated_date",
+      {"name": "status", "choices": ["active", "inactive"]}    
+    ],
+    "required": [
+      "name",
+      "orientation",
+      "row_number"
+    ],
+    "relationships": {
+      "LOCATED_IN": {
+        "target": "Location",
+        "direction": "out",
+        "description": "Row is located in room"
+      },
+      "ASSOCIATED_WITH": {
+        "target": "Organization, Location, Group",
+        "direction": "out",
+        "description": "Row is associated with organizational items"
+      }
+    }
+  }
+}

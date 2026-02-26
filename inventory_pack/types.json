@@ -1,0 +1,73 @@
+{
+    "Element": {
+    "display_name": "Element",
+    "description": "A generic unit of compute: physical device, virtual machine, container, or other.",
+    "category": "Inventory",
+    "properties": [
+      "name",
+      "element_id",
+      "serial_number",
+      "description",
+      "created_date",
+      "updated_date",
+      {"name": "status", "choices": ["active", "inactive"]},
+      {"name": "type", "choices": ["device","virtual_machine","container"]}
+    ],
+    "required": ["name", "type"],
+    "columns": ["name", "type", "status"],
+    "relationships": {
+      "HOSTED_ON": {
+        "target": "Element",
+        "direction": "out",
+        "description": "This unit is hosted on another element (e.g., VM on physical, container on VM)"
+      },
+      "INSTANCE_OF": {
+        "target": "Template_Item",
+        "direction": "out",
+        "description": "Element is an instance of a template item (model/configuration)"
+      },
+      "MANUFACTURED_BY": {
+        "target": "Organization",
+        "direction": "out",
+        "description": "Manufacturer organization"
+      },
+      "LOCATED_AT": {
+        "target": "Location",
+        "direction": "out",
+        "description": "Element is located at a location"
+      },
+      "ASSOCIATED_WITH": {
+        "target": "Organization, Group",
+        "direction": "out",
+        "description": "Element is associated with organizational items"
+      }
+    }
+  },
+    "Element_Template": {
+      "display_name": "Template",
+      "description": "Represents a model or instance type for base configuration (cpu, memory, storage, model #, etc.)",
+      "category": "Inventory",
+      "properties": [
+        "name",
+        "template_id",
+        "model_number",
+        "cpu",
+        "memory",
+        "storage",
+        "os",
+        "description",
+        "created_date",
+        "updated_date",
+        {"name": "status", "choices": ["active", "inactive"]}
+      ],
+      "required": ["name", "model_number"],
+      "columns": ["name", "model_number"],
+      "relationships": {
+        "MANUFACTURED_BY": {
+          "target": "Organization",
+          "direction": "out",
+          "description": "Manufacturer organization"
+        }
+      }
+    }
+}

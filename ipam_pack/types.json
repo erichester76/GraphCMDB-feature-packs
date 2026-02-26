@@ -1,0 +1,76 @@
+{
+  "Network": {
+    "display_name": "Network / Subnet",
+    "category": "IPAM",
+    "properties": [
+      "name",
+      "cidr",
+      "description",
+      "created_date",
+      "updated_date",
+      {"name": "status", "choices": ["active", "inactive"]}
+    ],
+    "required": [
+      "name",
+      "cidr"
+    ],
+    "columns": [
+      "name",
+      "cidr",
+      "description"
+    ],
+    "relationships": {
+      "CHILD_OF": {
+        "target": "Network",
+        "direction": "out"
+      }
+    }
+  },
+  "IP_Address": {
+    "display_name": "IP Address",
+    "category": "IPAM",
+    "properties": [
+      "address",
+      {"name": "type", "choices": ["ipv4", "ipv6"]},
+      "created_date",
+      "updated_date",
+      {"name": "status", "choices": ["active", "inactive"]}
+    ],
+    "required": [
+      "address"
+    ],
+    "columns": [
+      "address",
+      "type",
+      "status"
+    ],
+    "relationships": {
+      "PART_OF": {
+        "target": "Network",
+        "direction": "out"
+      },
+      "ASSIGNED_TO": {
+        "target": "Mac_Address",
+        "direction": "out"
+      }
+    }
+  },
+  "Mac_Address": {
+    "display_name": "MAC Address",
+    "category": "IPAM",
+    "properties": [
+      "address",
+      "created_date",
+      "updated_date",
+      {"name": "status", "choices": ["active", "inactive"]}
+    ],
+    "required": [
+      "address"
+    ],
+    "columns": [
+      "address",
+      "status"
+    ],
+    "relationships": {}
+  }
+}
